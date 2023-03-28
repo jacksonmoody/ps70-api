@@ -11,13 +11,13 @@ app.get('/speed', (req, res) => {
   })
 
 app.post('/direction', (req, res) => {
-  app.set('diretion', req.query.direction);
-    res.send(`Set direction to ${direction}`);
+  app.set('direction', req.query.direction);
+    res.send(`Set direction to ${app.get('direction')}`);
 })
 
 app.post('/speed', (req, res) => {
     app.set('speed', req.query.speed);
-    res.send(`Set speed to ${speed}`);
+    res.send(`Set speed to ${app.get('speed')}`);
 })
 
 app.listen(port, () => {
