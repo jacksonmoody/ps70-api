@@ -15,12 +15,12 @@ app.get('/speed', (req, res) => {
 
 app.post('/direction', (req, res) => {
     direction = req.query.direction;
-    res.send(direction);
+    res.send(`Set direction to ${direction}`);
 })
 
 app.post('/speed', (req, res) => {
     speed = req.query.speed;
-    res.send(speed);
+    res.send(`Set speed to ${speed}`);
 })
 
 app.listen(port, () => {
