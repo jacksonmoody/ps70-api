@@ -15,13 +15,14 @@ app.get('/speed', (req, res) => {
   })
 
 app.post('/direction', (req, res) => {
+  console.log("New Direction Request");
   app.set('direction', req.query.direction);
   app.set('time', req.query.time);
-  res.send(`Set direction to ${app.get('direction')}`);
-  res.send(`Set time to ${app.get('time')}`);
+  res.send(`Set direction to ${app.get('direction')} and time to ${app.get('time')}`);
 })
 
 app.post('/speed', (req, res) => {
+  console.log("New Speed Request");
   app.set('speed', req.query.speed);
   res.send(`Set speed to ${app.get('speed')}`);
 })
