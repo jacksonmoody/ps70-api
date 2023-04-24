@@ -21,7 +21,6 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   console.log(req.body);
-  req.body = JSON.parse(req.body);
   const xdata = req.body.x_coordinates;
   const ydata = req.body.y_coordinates;
   const pen = req.body.pen;
