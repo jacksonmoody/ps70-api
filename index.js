@@ -1,5 +1,7 @@
 const express = require('express');
 const cors=require("cors");
+const Robot = require('./Robot');
+
 const app = express();
 const port = 3000;
 
@@ -19,14 +21,22 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   console.log(req.body);
-  let xdata = req.body.x_coordinates;
-  let ydata = req.body.y_coordinates;
-  let pen = req.body.pen;
-  let instructions = [];
+  req.body = JSON.parse(req.body);
+  const xdata = req.body.x_coordinates;
+  const ydata = req.body.y_coordinates;
+  const pen = req.body.pen;
+  const time = req.body.time;
+  let coordinates = [];
   for (let i = 0; i < xdata.length; i++) {
-    instructions.append([xdata[i], ydata[i], pen[i]]);
+    coordinates.append([xdata[i], ydata[i], pen[i]]);
   }
-  app.set('data', instructions);
+  const robbo = new Robot();
+  const instructions = robbo.generateInstructions(coordinates);
+  const output = {
+    instructions: instructions,
+    id: time
+  }
+  app.set('data', JSON.stringify(output));
   res.send(`Set data to ${app.get('data')}`);
 })
 
