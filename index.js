@@ -19,7 +19,14 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
   console.log(req.body);
-  app.set('data', req.body);
+  let xdata = req.body.x_coordinates;
+  let ydata = req.body.y_coordinates;
+  let pen = req.body.pen;
+  let instructions = [];
+  for (let i = 0; i < xdata.length; i++) {
+    instructions.append([xdata[i], ydata[i], pen[i]]);
+  }
+  app.set('data', instructions);
   res.send(`Set data to ${app.get('data')}`);
 })
 
