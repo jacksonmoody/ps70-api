@@ -23,6 +23,12 @@ const corsOptions ={
    optionSuccessStatus:200,
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 app.use(cors(corsOptions))
 
 app.post('/gyro', (req, res) => {
@@ -50,16 +56,26 @@ app.post('/', (req, res) => {
   const xdata = req.body.x_coordinates;
   const ydata = req.body.y_coordinates;
   const pen = req.body.pen;
-  const time = req.body.time;
+  //const time = req.body.time;
   let coordinates = [];
   for (let i = 0; i < xdata.length; i++) {
     coordinates.push([xdata[i], ydata[i], pen[i]]);
   }
   const robbo = new Robot();
   const instructions = robbo.generateInstructions(coordinates);
-  output = {
-    instructions: instructions,
-    id: time
+  let t = getRandomInt(0, 10000);
+
+  if (req.body.circle) {
+    t = t * -1;
+    output = {
+      instructions: instructions,
+      id: t
+    }
+  } else {
+    output = {
+      instructions: instructions,
+      id: t
+    }
   }
   res.send(`Set data to ${output}`);
 })
