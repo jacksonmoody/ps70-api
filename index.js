@@ -4,6 +4,10 @@ const Robot = require('./Robot');
 
 const app = express();
 const port = 3000;
+let output = {
+  instructions: [],
+  id: 0
+}
 
 app.use(express.json());
 
@@ -16,7 +20,7 @@ const corsOptions ={
 app.use(cors(corsOptions))
 
 app.get('/', (req, res) => {
-  res.json(app.get('data'));
+  res.send(output);
 })
 
 app.post('/', (req, res) => {
@@ -31,12 +35,11 @@ app.post('/', (req, res) => {
   }
   const robbo = new Robot();
   const instructions = robbo.generateInstructions(coordinates);
-  const output = {
+  output = {
     instructions: instructions,
     id: time
   }
-  app.set('data', JSON.stringify(output));
-  res.send(`Set data to ${app.get('data')}`);
+  res.send(`Set data to ${output}`);
 })
 
 app.listen(port, () => {
