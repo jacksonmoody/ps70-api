@@ -59,7 +59,7 @@ app.post('/', (req, res) => {
   //const time = req.body.time;
   let coordinates = [];
   for (let i = 0; i < xdata.length; i++) {
-    coordinates.push([xdata[i], ydata[i], pen[i]]);
+    coordinates.push([xdata[i] * 2, ydata[i] * 2, pen[i]]);
   }
   const robbo = new Robot();
   const instructions = robbo.generateInstructions(coordinates);
